@@ -62,7 +62,7 @@ router.post(
 				}
 			);
 
-			console.log('User created');
+			console.log('User created', user);
 		} catch (error) {
 			console.log(error.message);
 			return res.status(500).send('Server error');
