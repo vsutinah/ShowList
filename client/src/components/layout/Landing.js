@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 const Landing = (props) => {
 	return (
 		<div>
-			<section className='my-5'>
+			<section>
 				<div>
-					<div className='d-flex flex-column align-items-center justify-content-center text-center position-relative'>
+					<div className='d-flex flex-column align-items-center justify-content-center text-center'>
 						<h1>Show List</h1>
 						<p>
 							Send recommendations of TV shows, books or even games to your
