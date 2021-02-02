@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'react-bootstrap';
+import axios from 'axios';
 
 const Register = (props) => {
 	const [formData, setFormData] = useState({
@@ -16,12 +17,31 @@ const Register = (props) => {
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (password !== password2) {
 			console.log('Passwords do not match!');
 		} else {
-			console.log(formData);
+			const newUser = {
+				name,
+				email,
+				password,
+			};
+
+			try {
+				const config = {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				};
+
+				const body = JSON.stringify(newUser);
+
+				const res = await axios.post('/api/users', body, config);
+				console.log(res.data); // Token
+			} catch (error) {
+				console.log(error.response.data);
+			}
 		}
 	};
 
