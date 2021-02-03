@@ -8,3 +8,12 @@ body {
 		no-repeat center center/cover;
 	height: 100vh;
 }
+
+.landing-prompt {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	color: #f8f9fa !important;
+}

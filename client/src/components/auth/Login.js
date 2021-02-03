@@ -16,7 +16,7 @@ const Login = (props) => {
 
 	return (
 		<div>
-			<h1>Sign in to your account</h1>
+			<h1>Login</h1>
 			<Form>
 				<Form.Group controlId='formBasicEmail'>
 					<Form.Label>Email address</Form.Label>

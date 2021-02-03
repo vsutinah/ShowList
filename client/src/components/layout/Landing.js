@@ -6,8 +6,8 @@ const Landing = (props) => {
 	return (
 		<div>
 			<section className='landing'>
-				<div>
-					<div className='d-flex flex-column align-items-center text-center text-light'>
+				<div className='text-center landing-prompt'>
+					<div>
 						<h1>Show List</h1>
 						<p>
 							Send recommendations of TV shows, books or even games to your
