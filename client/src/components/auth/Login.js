@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link, Redirect } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/auth';
 
-const Login = (props) => {
+const Login = ({ isAuthenticated, loginUser }) => {
 	const [formData, setFormData] = useState({
 		// Initial states
 		email: '',
@@ -14,9 +17,19 @@ const Login = (props) => {
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
+	const onSubmit = (e) => {
+		e.preventDefault();
+		loginUser({ email, password });
+	};
+
+	// Redirect to dashboard if logged in
+	if (isAuthenticated) {
+		return <Redirect to='/dashboard' />;
+	}
+
 	return (
 		<div>
-			<h1>Login</h1>
+			<h1 className='my-3'>Login</h1>
 			<Form>
 				<Form.Group controlId='formBasicEmail'>
 					<Form.Label>Email address</Form.Label>
@@ -44,14 +57,24 @@ const Login = (props) => {
 						required
 					/>
 				</Form.Group>
-				<Button variant='primary' type='submit'>
+				<Button variant='primary' type='submit' onSubmit={(e) => onSubmit(e)}>
 					Submit
 				</Button>
 			</Form>
+			<p className='my-1'>
+				Don't have an account? <Link to='/register'>Sign Up</Link>
+			</p>
 		</div>
 	);
 };
 
-Login.propTypes = {};
+Login.propTypes = {
+	loginUser: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool,
+};
 
-export default Login;
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { loginUser })(Login);

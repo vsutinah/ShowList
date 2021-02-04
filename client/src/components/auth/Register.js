@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { setAlert } from '../../actions/alert';
+import { registerUser } from '../../actions/auth';
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, registerUser, isAuthenticated }) => {
 	const [formData, setFormData] = useState({
 		// Initial states
 		name: '',
@@ -25,30 +25,18 @@ const Register = ({ setAlert }) => {
 		if (password !== password2) {
 			setAlert('Passwords do not match!', 'danger', '3000');
 		} else {
-			const newUser = {
-				name,
-				email,
-				password,
-			};
-
-			try {
-				const config = {
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				};
-
-				const res = await axios.post('/api/users', newUser, config);
-				setAlert('Registered successfully!', 'success', '3000');
-			} catch (error) {
-				console.log(error.response.data);
-			}
+			registerUser({ name, email, password });
+			setAlert('Registered successfully!', 'success', '3000');
 		}
 	};
 
+	if (isAuthenticated) {
+		return <Redirect to='/dashboard' />;
+	}
+
 	return (
 		<div>
-			<h1>Register</h1>
+			<h1 className='my-3'>Register</h1>
 			<Form onSubmit={(e) => onSubmit(e)}>
 				<Form.Group controlId='name'>
 					<Form.Label>Name</Form.Label>
@@ -102,7 +90,7 @@ const Register = ({ setAlert }) => {
 					Submit
 				</Button>
 			</Form>
-			<p>
+			<p className='my-1'>
 				Already have an account? <Link to='/login'> Sign in here!</Link>
 			</p>
 		</div>
@@ -111,6 +99,11 @@ const Register = ({ setAlert }) => {
 
 Register.propTypes = {
 	setAlert: PropTypes.func.isRequired,
+	register: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setAlert })(Register);
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, registerUser })(Register);

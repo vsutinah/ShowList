@@ -1,17 +1,27 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/layout/Header';
 import Alert from './components/layout/Alert';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import setAuthToken from './utils/setAuthToken';
+import { loadUser } from './actions/auth';
 // Redux
 import { Provider } from 'react-redux'; // Connects React & Redux
 import store from './store';
 
+if (localStorage.token) {
+	setAuthToken(localStorage.token);
+}
+
 function App() {
+	useEffect(() => {
+		store.dispatch(loadUser());
+	}, []);
+
 	return (
 		<Provider store={store}>
 			<Router>

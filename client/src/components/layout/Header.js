@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logout } from '../../actions/auth';
 
-const Header = () => {
+const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 	const authLinks = (
 		<Nav className='ml-auto mr-3'>
-			<Link>Recommend</Link>
-			<Link>My Profile</Link>
-			<Link>Logout</Link>
+			<Nav.Link href='/recommend'>Recommend</Nav.Link>
+			<Nav.Link href='/dashboard'>My Profile</Nav.Link>
+			<Nav.Link onClick={logout}>Logout</Nav.Link>
 		</Nav>
 	);
 
 	const guestLinks = (
 		<Nav className='ml-auto mr-3'>
-			<Link>Login</Link>
-			<Link>Register</Link>
+			<Nav.Link href='/login'>Login</Nav.Link>
+			<Nav.Link href='/register'>Register</Nav.Link>
 		</Nav>
 	);
 
@@ -26,10 +28,9 @@ const Header = () => {
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
 				<Navbar.Collapse id='basic-navbar-nav'>
-					<Nav className='ml-auto mr-3'>
-						<Nav.Link href='/login'>Login</Nav.Link>
-						<Nav.Link href='/register'>Register</Nav.Link>
-					</Nav>
+					{!loading && (
+						<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+					)}
 				</Navbar.Collapse>
 			</Navbar>
 		</header>
@@ -37,6 +38,14 @@ const Header = () => {
 };
 
 // If-else condition to switch between authLinks and guestLinks
-// { !loading && (<Fragment>{ isAuthenticated ? authLinks : guestLinks }</Fragment>) }
 
-export default Header;
+Header.propTypes = {
+	auth: PropTypes.object.isRequired,
+	logout: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(Header);
