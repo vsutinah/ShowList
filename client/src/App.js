@@ -7,6 +7,7 @@ import Alert from './components/layout/Alert';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import Recommend from './components/shows/Recommend';
 import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './actions/auth';
 // Redux
@@ -33,6 +34,7 @@ function App() {
 						<Switch>
 							<Route exact path='/login' component={Login} />
 							<Route exact path='/register' component={Register} />
+							<Route exact path='/recommend' component={Recommend} />
 						</Switch>
 					</section>
 				</Fragment>
