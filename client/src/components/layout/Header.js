@@ -9,7 +9,9 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 		<Nav className='ml-auto mr-3'>
 			<Nav.Link href='/recommend'>Recommend</Nav.Link>
 			<Nav.Link href='/dashboard'>My Profile</Nav.Link>
-			<Nav.Link onClick={logout}>Logout</Nav.Link>
+			<Nav.Link onClick={logout} href='/'>
+				Logout
+			</Nav.Link>
 		</Nav>
 	);
 

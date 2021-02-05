@@ -30,7 +30,7 @@ const Login = ({ isAuthenticated, loginUser }) => {
 	return (
 		<div>
 			<h1 className='my-3'>Login</h1>
-			<Form>
+			<Form onSubmit={(e) => onSubmit(e)}>
 				<Form.Group controlId='formBasicEmail'>
 					<Form.Label>Email address</Form.Label>
 					<Form.Control
@@ -57,7 +57,7 @@ const Login = ({ isAuthenticated, loginUser }) => {
 						required
 					/>
 				</Form.Group>
-				<Button variant='primary' type='submit' onSubmit={(e) => onSubmit(e)}>
+				<Button variant='primary' type='submit'>
 					Submit
 				</Button>
 			</Form>
