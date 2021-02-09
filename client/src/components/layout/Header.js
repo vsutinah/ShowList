@@ -8,6 +8,7 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 	const authLinks = (
 		<Nav className='ml-auto mr-3'>
 			<Nav.Link href='/recommend'>Recommend</Nav.Link>
+			<Nav.Link href='/recommendations'>My Recommendations</Nav.Link>
 			<Nav.Link href='/dashboard'>My Profile</Nav.Link>
 			<Nav.Link onClick={logout} href='/'>
 				Logout

@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-const Recommendation = (props) => {
+const Recommendation = ({ isAuthenticated }) => {
+	// Redirect to login page if not logged in
+	// if (!isAuthenticated) {
+	// 	return <Redirect to='/login' />;
+	// }
+
 	return (
 		<div>
 			<h1>Recommendation 1</h1>
@@ -17,8 +24,12 @@ const Recommendation = (props) => {
 	);
 };
 
-Recommendation.propTypes = {};
+Recommendation.propTypes = {
+	isAuthenticated: PropTypes.bool,
+};
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
 
-export default Recommendation;
+export default connect(mapStateToProps)(Recommendation);

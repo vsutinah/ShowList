@@ -36,8 +36,6 @@ router.post(
 			// Save show details to DB
 			await show.save();
 
-			console.log('Show recommendation created', show);
-			console.log(req.user);
 			res.send(show);
 		} catch (error) {
 			console.log(error.message);
@@ -52,10 +50,12 @@ router.post(
 router.get('/', auth, async (req, res) => {
 	try {
 		// Find show recommendations that have same targetUser ID as current user's ID
-		const shows = await Show.find({ targetUser: req.user.id });
+		const shows = await Show.find({
+			targetUser: req.user.id,
+		});
 
-		console.log('Displaying show recommendations...', shows);
-		res.send(shows);
+		console.log('Displaying shows: ', shows);
+		res.json(shows);
 	} catch (error) {
 		console.log(error.message);
 		return res.status(500).send('Server error');
@@ -73,7 +73,6 @@ router.get('/:showId', auth, async (req, res) => {
 			_id: req.params.showId,
 		});
 
-		console.log('Displaying show recommendation...', show);
 		res.send(show);
 	} catch (error) {
 		console.log(error.message);

@@ -15,12 +15,12 @@ const ShowSchema = new Schema({
 		required: true,
 	},
 	targetUser: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: Schema.Types.ObjectId,
 		ref: 'user',
 		required: true,
 	},
 	fromUser: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: Schema.Types.ObjectId,
 		ref: 'user',
 	},
 });

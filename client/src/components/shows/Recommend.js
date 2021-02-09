@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button, Card } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-const Recommend = (props) => {
+const Recommend = ({ isAuthenticated }) => {
 	const [formData, setFormData] = useState({
 		// Initial states
 		title: '',
@@ -24,6 +26,11 @@ const Recommend = (props) => {
 		// setAlert('Registered successfully!', 'success', '3000');
 		// }
 	};
+
+	// Redirect to login page if not logged in
+	// if (!isAuthenticated) {
+	// 	return <Redirect to='/login' />;
+	// }
 
 	return (
 		<div>
@@ -87,6 +94,12 @@ const Recommend = (props) => {
 	);
 };
 
-Recommend.propTypes = {};
+Recommend.propTypes = {
+	isAuthenticated: PropTypes.bool,
+};
 
-export default Recommend;
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(Recommend);
