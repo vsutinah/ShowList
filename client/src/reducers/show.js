@@ -1,5 +1,6 @@
 import {
 	RECOMMENDATIONS_ERROR,
+	RECOMMENDATION_LOADED,
 	RECOMMENDATIONS_LOADED,
 } from '../actions/types';
 
@@ -17,6 +18,8 @@ export default function (state = initialState, action) {
 	switch (type) {
 		case RECOMMENDATIONS_LOADED:
 			return { ...state, recommendations: payload, loading: false };
+		case RECOMMENDATION_LOADED:
+			return { ...state, recommendation: payload, loading: false };
 		case RECOMMENDATIONS_ERROR:
 			return { ...state, error: payload, loading: false };
 		default:

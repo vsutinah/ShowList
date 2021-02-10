@@ -54,7 +54,6 @@ router.get('/', auth, async (req, res) => {
 			targetUser: req.user.id,
 		}).populate('fromUser', ['name']);
 
-		console.log('Displaying shows: ', shows);
 		res.json(shows);
 	} catch (error) {
 		console.log(error.message);
