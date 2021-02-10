@@ -52,7 +52,7 @@ router.get('/', auth, async (req, res) => {
 		// Find show recommendations that have same targetUser ID as current user's ID
 		const shows = await Show.find({
 			targetUser: req.user.id,
-		});
+		}).populate('fromUser', ['name']);
 
 		console.log('Displaying shows: ', shows);
 		res.json(shows);
@@ -71,7 +71,7 @@ router.get('/:showId', auth, async (req, res) => {
 		const show = await Show.findOne({
 			targetUser: req.user.id,
 			_id: req.params.showId,
-		});
+		}).populate('fromUser', ['name']);
 
 		res.send(show);
 	} catch (error) {

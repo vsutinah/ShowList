@@ -16,12 +16,12 @@ const ShowSchema = new Schema({
 	},
 	targetUser: {
 		type: Schema.Types.ObjectId,
-		ref: 'user',
+		ref: 'User',
 		required: true,
 	},
 	fromUser: {
 		type: Schema.Types.ObjectId,
-		ref: 'user',
+		ref: 'User',
 	},
 });
 

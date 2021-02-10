@@ -34,7 +34,7 @@ const Recommendations = ({
 							<Card.Text>{recommendation.description}</Card.Text>
 						</Card.Body>
 						<Card.Footer className='text-muted'>
-							Recommended by {recommendation.fromUser}
+							Recommended by {recommendation.fromUser.name}
 						</Card.Footer>
 					</Card>
 				))}
