@@ -4,6 +4,7 @@ const express = require('express'),
 	jwt = require('jsonwebtoken'),
 	router = express.Router(),
 	{ check, validationResult } = require('express-validator'),
+	auth = require('../../middlewares/auth'),
 	User = require('../../models/User');
 
 // @route POST api/users
@@ -69,5 +70,22 @@ router.post(
 		}
 	}
 );
+
+// @route GET api/users
+// @desc Retrieve list of users in DB to recommend shows to
+// @access Private
+router.get('/', auth, async (req, res) => {
+	try {
+		// Find all users in the DB
+		const users = await User.find()
+			.select('-password')
+			.select('-email')
+			.select('-date');
+		res.json(users);
+	} catch (error) {
+		console.log(error.message);
+		return res.status(500).send('Server error');
+	}
+});
 
 module.exports = router;

@@ -73,6 +73,13 @@ router.post(
 					res.json({ token });
 				}
 			);
+
+			// Set last login property to current date
+			user = await User.findOneAndUpdate(
+				{ email: email },
+				{ lastLogin: user.currentLogin, currentLogin: Date.now() }
+			);
+			await user.save();
 		} catch (error) {
 			console.log(error.message);
 			return res.status(500).send('Server error');

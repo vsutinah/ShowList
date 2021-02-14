@@ -23,6 +23,10 @@ const ShowSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'User',
 	},
+	date: {
+		type: Date,
+		default: Date.now,
+	},
 });
 
 module.exports = Show = mongoose.model('Show', ShowSchema);
