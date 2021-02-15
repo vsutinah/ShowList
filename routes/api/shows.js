@@ -67,10 +67,20 @@ router.get('/', auth, async (req, res) => {
 router.get('/:showId', auth, async (req, res) => {
 	try {
 		// Find details of the recommendation IF targetUser ID == current user's ID
-		const show = await Show.findOne({
+		let show = await Show.findOne({
 			targetUser: req.user.id,
 			_id: req.params.showId,
 		}).populate('fromUser', ['name']);
+
+		// If recommendation is retrieved for 1st time, set seen property to true
+		if (!show.seen) {
+			show = await Show.findOneAndUpdate(
+				{ _id: req.params.showId },
+				{ seen: true }
+			);
+			console.log(show.seen);
+			await show.save();
+		}
 
 		res.send(show);
 	} catch (error) {

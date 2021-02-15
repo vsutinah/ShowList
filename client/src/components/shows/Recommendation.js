@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { loadRecommendation } from '../../actions/show';
+import { Spinner } from '../layout/Spinner';
 
 const Recommendation = ({
 	isAuthenticated,
 	loadRecommendation,
-	recommendation,
+	show: { recommendation, loading },
 	match,
 }) => {
 	// Redirect to login page if not logged in
@@ -19,7 +20,9 @@ const Recommendation = ({
 		loadRecommendation(match.params.id);
 	}, [loadRecommendation, match.params.id]);
 
-	return (
+	return loading || recommendation === null ? (
+		<Spinner />
+	) : (
 		<div>
 			<Link to='/recommendations' className='btn btn-light my-3'>
 				Back to Recommendations
@@ -41,7 +44,7 @@ Recommendation.propTypes = {
 
 const mapStateToProps = (state) => ({
 	isAuthenticated: state.auth.isAuthenticated,
-	recommendation: state.show.recommendation,
+	show: state.show,
 });
 
 export default connect(mapStateToProps, { loadRecommendation })(Recommendation);

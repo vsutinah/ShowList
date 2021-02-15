@@ -21,7 +21,7 @@ const Recommendations = ({
 
 	return (
 		<div>
-			<h1 className='my-3'>My Recommendations</h1>
+			<h1 className='my-3 text-center'>My Recommendations</h1>
 			<div className='d-flex flex-column justify-content-center'>
 				{recommendations.map((recommendation) => (
 					<Card>

@@ -27,6 +27,10 @@ const ShowSchema = new Schema({
 		type: Date,
 		default: Date.now,
 	},
+	seen: {
+		type: Boolean,
+		default: false,
+	},
 });
 
 module.exports = Show = mongoose.model('Show', ShowSchema);

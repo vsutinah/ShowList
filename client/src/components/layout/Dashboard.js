@@ -20,7 +20,7 @@ const Dashboard = ({
 	}, [loadRecommendations]);
 
 	let newRecommendations = recommendations.filter(
-		(recommendation) => recommendation.date > user.lastLogin
+		(recommendation) => !recommendation.seen
 	);
 
 	return (
