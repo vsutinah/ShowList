@@ -6,16 +6,10 @@ import { loadRecommendation } from '../../actions/show';
 import { Spinner } from '../layout/Spinner';
 
 const Recommendation = ({
-	isAuthenticated,
 	loadRecommendation,
 	show: { recommendation, loading },
 	match,
 }) => {
-	// Redirect to login page if not logged in
-	// if (!isAuthenticated) {
-	// 	return <Redirect to='/login' />;
-	// }
-
 	useEffect(() => {
 		loadRecommendation(match.params.id);
 	}, [loadRecommendation, match.params.id]);
@@ -38,12 +32,10 @@ const Recommendation = ({
 };
 
 Recommendation.propTypes = {
-	isAuthenticated: PropTypes.bool,
 	loadRecommendation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated,
 	show: state.show,
 });
 

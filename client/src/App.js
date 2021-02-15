@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import PrivateRoute from './components/routing/PrivateRoute';
 import Header from './components/layout/Header';
 import Alert from './components/layout/Alert';
 import Landing from './components/layout/Landing';
@@ -37,14 +38,14 @@ function App() {
 						<Switch>
 							<Route exact path='/login' component={Login} />
 							<Route exact path='/register' component={Register} />
-							<Route exact path='/dashboard' component={Dashboard} />
-							<Route exact path='/recommend' component={Recommend} />
-							<Route
+							<PrivateRoute exact path='/dashboard' component={Dashboard} />
+							<PrivateRoute exact path='/recommend' component={Recommend} />
+							<PrivateRoute
 								exact
 								path='/recommendations'
 								component={Recommendations}
 							/>
-							<Route
+							<PrivateRoute
 								exact
 								path='/recommendations/:id'
 								component={Recommendation}

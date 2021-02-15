@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Form, Button, Card } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { Spinner } from '../layout/Spinner';
 
-const Recommend = ({ isAuthenticated }) => {
+const Recommend = ({ auth: { loading } }) => {
 	const [formData, setFormData] = useState({
 		// Initial states
 		title: '',
@@ -27,12 +28,9 @@ const Recommend = ({ isAuthenticated }) => {
 		// }
 	};
 
-	// Redirect to login page if not logged in
-	// if (!isAuthenticated) {
-	// 	return <Redirect to='/login' />;
-	// }
-
-	return (
+	return loading ? (
+		<Spinner />
+	) : (
 		<div>
 			<h1 className='my-3 text-center'>Recommend</h1>
 			<Card>
@@ -95,11 +93,11 @@ const Recommend = ({ isAuthenticated }) => {
 };
 
 Recommend.propTypes = {
-	isAuthenticated: PropTypes.bool,
+	auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated,
+	auth: state.auth,
 });
 
 export default connect(mapStateToProps)(Recommend);

@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { Button, Card } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import { loadRecommendations } from '../../actions/show';
+import { Spinner } from './Spinner';
 
 const Dashboard = ({
 	isAuthenticated,
 	user,
 	loadRecommendations,
-	show: { recommendations },
+	show: { recommendations, loading },
 }) => {
 	// Redirect to login page if not logged in
 	// if (!isAuthenticated) {
@@ -23,7 +24,9 @@ const Dashboard = ({
 		(recommendation) => !recommendation.seen
 	);
 
-	return (
+	return loading ? (
+		<Spinner />
+	) : (
 		<div>
 			<h1 className='my-3'>Welcome, {user && user.name}</h1>
 			<Button variant='light'>
