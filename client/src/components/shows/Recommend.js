@@ -2,30 +2,27 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button, Card } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { Spinner } from '../layout/Spinner';
+import { addRecommendation } from '../../actions/show';
 
-const Recommend = ({ auth: { loading } }) => {
+const Recommend = ({ auth: { loading }, addRecommendation }) => {
 	const [formData, setFormData] = useState({
 		// Initial states
 		title: '',
 		type: '',
+		genre: '',
 		description: '',
 		targetUser: '',
 	});
 
-	const { title, type, description, targetUser } = formData;
+	const { title, type, genre, description, targetUser } = formData;
 
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		// if () {
-		// setAlert('Passwords do not match!', 'danger', '3000');
-		// } else {
-		// setAlert('Registered successfully!', 'success', '3000');
-		// }
+		addRecommendation({ formData });
 	};
 
 	return loading ? (
@@ -54,6 +51,18 @@ const Recommend = ({ auth: { loading } }) => {
 								placeholder='Type'
 								name='type'
 								value={type}
+								onChange={(e) => onChange(e)}
+								required
+							/>
+						</Form.Group>
+
+						<Form.Group controlId='genre'>
+							<Form.Label>Genres</Form.Label>
+							<Form.Control
+								type='text'
+								placeholder='Genre'
+								name='genre'
+								value={genre}
 								onChange={(e) => onChange(e)}
 								required
 							/>
@@ -94,10 +103,11 @@ const Recommend = ({ auth: { loading } }) => {
 
 Recommend.propTypes = {
 	auth: PropTypes.object.isRequired,
+	addRecommendation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps)(Recommend);
+export default connect(mapStateToProps, { addRecommendation })(Recommend);

@@ -10,6 +10,9 @@ const ShowSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	genres: {
+		type: String,
+	},
 	description: {
 		type: String,
 		required: true,
@@ -22,6 +25,7 @@ const ShowSchema = new Schema({
 	fromUser: {
 		type: Schema.Types.ObjectId,
 		ref: 'User',
+		required: true,
 	},
 	date: {
 		type: Date,

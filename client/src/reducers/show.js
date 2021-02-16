@@ -2,6 +2,7 @@ import {
 	RECOMMENDATIONS_ERROR,
 	RECOMMENDATION_LOADED,
 	RECOMMENDATIONS_LOADED,
+	ADD_RECOMMENDATION,
 } from '../actions/types';
 
 const initialState = {
@@ -22,6 +23,12 @@ export default function (state = initialState, action) {
 			return { ...state, recommendation: payload, loading: false };
 		case RECOMMENDATIONS_ERROR:
 			return { ...state, error: payload, loading: false };
+		case ADD_RECOMMENDATION:
+			return {
+				...state,
+				recommendations: [payload, ...state.recommendations],
+				loading: false,
+			};
 		default:
 			return state;
 	}

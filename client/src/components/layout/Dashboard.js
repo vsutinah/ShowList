@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, Card } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { loadRecommendations } from '../../actions/show';
 import { Spinner } from './Spinner';
 
@@ -12,10 +12,6 @@ const Dashboard = ({
 	loadRecommendations,
 	show: { recommendations, loading },
 }) => {
-	// Redirect to login page if not logged in
-	// if (!isAuthenticated) {
-	// 	return <Redirect to='/login' />;
-	// }
 	useEffect(() => {
 		loadRecommendations();
 	}, [loadRecommendations]);

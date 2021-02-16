@@ -2,7 +2,9 @@ import {
 	RECOMMENDATIONS_LOADED,
 	RECOMMENDATION_LOADED,
 	RECOMMENDATIONS_ERROR,
+	ADD_RECOMMENDATION,
 } from './types';
+import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
 import axios from 'axios';
 
@@ -52,6 +54,32 @@ export const loadRecommendation = (showId) => async (dispatch) => {
 				msg: error.response.statusText,
 				status: error.response.status,
 			},
+		});
+	}
+};
+
+// Add new recommendation for target user
+export const addRecommendation = (formData) => async (dispatch) => {
+	// Set necessary req header
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+
+	try {
+		const res = await axios.post(`/api/shows/`, formData, config);
+
+		dispatch({
+			type: ADD_RECOMMENDATION,
+			payload: res.data, // Payload contains data from response
+		});
+
+		dispatch(setAlert('Recommendation added successfully', 'success'));
+	} catch (e) {
+		dispatch({
+			type: RECOMMENDATIONS_ERROR,
+			payload: { msg: e.response.statusText, status: e.response.status },
 		});
 	}
 };

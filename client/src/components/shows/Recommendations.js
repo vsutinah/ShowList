@@ -2,24 +2,21 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { loadRecommendations } from '../../actions/show';
+import { Spinner } from '../../components/layout/Spinner';
 
 const Recommendations = ({
-	isAuthenticated,
 	loadRecommendations,
-	recommendations,
+	show: { loading, recommendations },
 }) => {
-	// Redirect to login page if not logged in
-	// if (!isAuthenticated) {
-	// 	return <Redirect to='/login' />;
-	// }
-
 	useEffect(() => {
 		loadRecommendations();
 	}, [loadRecommendations]);
 
-	return (
+	return loading || recommendations === null ? (
+		<Spinner />
+	) : (
 		<div>
 			<h1 className='my-3 text-center'>My Recommendations</h1>
 			<div className='d-flex flex-column justify-content-center'>
@@ -44,13 +41,12 @@ const Recommendations = ({
 };
 
 Recommendations.propTypes = {
-	isAuthenticated: PropTypes.bool,
 	loadRecommendations: PropTypes.func.isRequired,
+	show: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated,
-	recommendations: state.show.recommendations,
+	show: state.show,
 });
 
 export default connect(mapStateToProps, { loadRecommendations })(

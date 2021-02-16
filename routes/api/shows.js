@@ -2,6 +2,7 @@ const express = require('express'),
 	router = express.Router(),
 	{ check, validationResult } = require('express-validator'),
 	auth = require('../../middlewares/auth'),
+	User = require('../../models/User'),
 	Show = require('../../models/Show');
 
 // @route POST api/shows
@@ -33,6 +34,16 @@ router.post(
 
 			// Add recommender's ID to fromUser property
 			show.fromUser = req.user.id;
+
+			// Add target user's ID by finding it with the name used in form
+			const targetUser = await User.findOne({ name: req.body.targetUser });
+			show.targetUser = targetUser._id;
+
+			// If genre is empty, set it as '-'
+			if (show.genre === null) {
+				show.genre = '-';
+			}
+
 			// Save show details to DB
 			await show.save();
 
