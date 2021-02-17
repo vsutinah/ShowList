@@ -10,19 +10,18 @@ const Recommend = ({ auth: { loading }, addRecommendation }) => {
 		// Initial states
 		title: '',
 		type: '',
-		genre: '',
 		description: '',
 		targetUser: '',
 	});
 
-	const { title, type, genre, description, targetUser } = formData;
+	const { title, type, description, targetUser } = formData;
 
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		addRecommendation({ formData });
+		addRecommendation(formData);
 	};
 
 	return loading ? (
@@ -51,18 +50,6 @@ const Recommend = ({ auth: { loading }, addRecommendation }) => {
 								placeholder='Type'
 								name='type'
 								value={type}
-								onChange={(e) => onChange(e)}
-								required
-							/>
-						</Form.Group>
-
-						<Form.Group controlId='genre'>
-							<Form.Label>Genres</Form.Label>
-							<Form.Control
-								type='text'
-								placeholder='Genre'
-								name='genre'
-								value={genre}
 								onChange={(e) => onChange(e)}
 								required
 							/>

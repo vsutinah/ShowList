@@ -8,6 +8,13 @@ import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
 import axios from 'axios';
 
+const instance = axios.create({
+	baseURL:
+		process.env.NODE_ENV === 'development'
+			? 'http://localhost:5000'
+			: 'http://example.com',
+});
+
 // Load user's recommendations
 export const loadRecommendations = () => async (dispatch) => {
 	// If token exists in local storage (user is authenticated), set auth token in request header
@@ -60,15 +67,19 @@ export const loadRecommendation = (showId) => async (dispatch) => {
 
 // Add new recommendation for target user
 export const addRecommendation = (formData) => async (dispatch) => {
+	if (localStorage.token) {
+		setAuthToken(localStorage.token);
+	}
+	console.log(localStorage.token);
 	// Set necessary req header
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	};
-
+	console.log(formData);
 	try {
-		const res = await axios.post(`/api/shows/`, formData, config);
+		const res = await instance.post('/api/shows/', formData, config);
 
 		dispatch({
 			type: ADD_RECOMMENDATION,

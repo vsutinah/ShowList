@@ -25,9 +25,7 @@ const Dashboard = ({
 	) : (
 		<div>
 			<h1 className='my-3'>Welcome, {user && user.name}</h1>
-			<Button variant='light'>
-				<b>Edit Profile</b>
-			</Button>
+
 			<h2 className='my-3'>
 				You have {newRecommendations.length} new recommendations.
 			</h2>

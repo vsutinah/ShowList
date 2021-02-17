@@ -89,7 +89,6 @@ router.get('/:showId', auth, async (req, res) => {
 				{ _id: req.params.showId },
 				{ seen: true }
 			);
-			console.log(show.seen);
 			await show.save();
 		}
 
