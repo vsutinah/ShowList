@@ -80,7 +80,9 @@ router.get('/', auth, async (req, res) => {
 		const users = await User.find()
 			.select('-password')
 			.select('-email')
-			.select('-date');
+			.select('-date')
+			.select('-lastLogin')
+			.select('-currentLogin');
 		res.json(users);
 	} catch (error) {
 		console.log(error.message);

@@ -70,7 +70,7 @@ export const addRecommendation = (formData) => async (dispatch) => {
 	if (localStorage.token) {
 		setAuthToken(localStorage.token);
 	}
-	console.log(localStorage.token);
+
 	// Set necessary req header
 	const config = {
 		headers: {

@@ -2,6 +2,7 @@ import {
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
 	USER_LOADED,
+	USERS_LOADED,
 	AUTH_ERROR,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
@@ -23,6 +24,27 @@ export const loadUser = () => async (dispatch) => {
 
 		dispatch({
 			type: USER_LOADED,
+			payload: res.data,
+		});
+	} catch (error) {
+		dispatch({
+			type: AUTH_ERROR,
+		});
+	}
+};
+
+// Load Users (for recommendation form)
+export const loadUsers = () => async (dispatch) => {
+	// If token exists in local storage (user is authenticated), set auth token in request header
+	if (localStorage.token) {
+		setAuthToken(localStorage.token);
+	}
+
+	try {
+		const res = await axios.get('/api/users');
+
+		dispatch({
+			type: USERS_LOADED,
 			payload: res.data,
 		});
 	} catch (error) {

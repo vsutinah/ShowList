@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Button, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { loadRecommendations } from '../../actions/show';
 import { Spinner } from './Spinner';
 
 const Dashboard = ({
-	isAuthenticated,
 	user,
 	loadRecommendations,
 	show: { recommendations, loading },
@@ -52,14 +51,12 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
 	user: PropTypes.object,
-	isAuthenticated: PropTypes.bool,
 	show: PropTypes.object,
 	loadRecommendations: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	user: state.auth.user,
-	isAuthenticated: state.auth.isAuthenticated,
 	show: state.show,
 });
 
