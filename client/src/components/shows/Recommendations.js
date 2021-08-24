@@ -21,7 +21,7 @@ const Recommendations = ({
 			<h1 className='my-3 text-center'>My Recommendations</h1>
 			<div className='d-flex flex-column justify-content-center'>
 				{recommendations.map((recommendation) => (
-					<Card>
+					<Card key={recommendation._id}>
 						<Card.Header>
 							<Link to={`/recommendations/${recommendation._id}`}>
 								{recommendation.title}
