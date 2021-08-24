@@ -77,10 +77,9 @@ export const addRecommendation = (formData) => async (dispatch) => {
 			'Content-Type': 'application/json',
 		},
 	};
-	console.log(formData);
+
 	try {
 		const res = await instance.post('/api/shows/', formData, config);
-
 		dispatch({
 			type: ADD_RECOMMENDATION,
 			payload: res.data, // Payload contains data from response

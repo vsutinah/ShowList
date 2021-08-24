@@ -27,21 +27,21 @@ const Recommend = ({
 
 	const { title, type, description, targetUser } = formData;
 
+	const filteredUsers = users.filter((user) =>
+		user.name.toLowerCase().includes(targetUser.toLowerCase())
+	);
+
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const onClick = (e) => {
-		setFormData({ ...formData, [targetUser]: e.target.outerText });
+		setFormData({ ...formData, targetUser: e.target.innerText });
 	};
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		addRecommendation(formData);
 	};
-
-	const filteredUsers = users.filter((user) =>
-		user.name.toLowerCase().includes(targetUser)
-	);
 
 	return loading ? (
 		<Spinner />

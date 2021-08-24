@@ -21,3 +21,8 @@ body {
 .card {
 	margin-bottom: 1rem;
 }
+
+.list-group-item:hover {
+	background: lightblue;
+	transition: all 0.6s;
+}
