@@ -15,7 +15,7 @@ const instance = axios.create({
 	baseURL:
 		process.env.NODE_ENV === 'development'
 			? 'http://localhost:5000'
-			: 'http://example.com',
+			: 'https://main.d2i9u9nowntbtj.amplifyapp.com/',
 });
 
 // Middleware
