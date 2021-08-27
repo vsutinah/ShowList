@@ -6,8 +6,8 @@ const express = require('express'),
 	app = express(),
 	axios = require('axios'),
 	cors = require('cors'),
-	connectDB = require('./config/db');
-path = require('path');
+	connectDB = require('./config/db'),
+	path = require('path');
 
 connectDB();
 
